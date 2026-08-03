@@ -1,0 +1,3156 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="사용자의 불편을 먼저 발견하고 제품의 변화까지 직접 만드는 프론트엔드 엔지니어 신재민의 포트폴리오" />
+    <meta name="theme-color" content="#f3f0e8" />
+    <title>신재민 — Frontend Engineer</title>
+    <style>
+      :root {
+        --paper: #f3f0e8;
+        --paper-deep: #e9e4d9;
+        --ink: #171915;
+        --muted: #66695f;
+        --faint: #92958b;
+        --line: #cbc8bd;
+        --line-strong: #96988e;
+        --primary: #1f5fd6;
+        --primary-deep: #1747a6;
+        --primary-soft: #dfe9fb;
+        --signal: #a9c9ff;
+        --white: #fffdf8;
+        --sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo",
+          "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        --content: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: var(--sans);
+        line-height: 1.7;
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body::before {
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(23, 25, 21, 0.055) 0.7px,
+          transparent 0.8px
+        );
+        background-size: 13px 13px;
+        content: "";
+        pointer-events: none;
+      }
+
+      ::selection {
+        color: var(--ink);
+        background: var(--signal);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--primary);
+        outline-offset: 4px;
+      }
+
+      .skip-link {
+        position: fixed;
+        z-index: 100;
+        top: 12px;
+        left: 12px;
+        padding: 10px 14px;
+        color: var(--white);
+        background: var(--ink);
+        font-size: 13px;
+        transform: translateY(-160%);
+      }
+
+      .skip-link:focus {
+        transform: none;
+      }
+
+      .shell {
+        width: min(calc(100% - 48px), var(--content));
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        color: var(--primary);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        background: var(--signal);
+        border: 1px solid var(--primary);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .topbar {
+        position: sticky;
+        z-index: 50;
+        top: 0;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--paper) 93%, transparent);
+        backdrop-filter: blur(14px);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 58px;
+      }
+
+      .topnav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+      }
+
+      .topnav a {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .topnav a:hover {
+        color: var(--ink);
+      }
+
+      .contact-link {
+        justify-self: end;
+        padding-bottom: 2px;
+        border-bottom: 1px solid var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .hero {
+        border-bottom: 1px solid var(--line-strong);
+      }
+
+      .hero-main {
+        padding: 86px 0 56px;
+      }
+
+      .hero h1 {
+        max-width: 820px;
+        margin: 28px 0 32px;
+        font-size: clamp(38px, 4.8vw, 64px);
+        font-weight: 760;
+        letter-spacing: -0.06em;
+        line-height: 1.06;
+      }
+
+      .hero h1 .quiet {
+        color: var(--muted);
+        font-weight: 540;
+      }
+
+      .hero-lead {
+        max-width: 660px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(17px, 1.6vw, 22px);
+        letter-spacing: -0.025em;
+        line-height: 1.65;
+      }
+
+      .hero-lead strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .hero-foot {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 32px;
+        margin-top: 72px;
+      }
+
+      .hero-caption {
+        max-width: 460px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .down-link {
+        display: inline-grid;
+        width: 52px;
+        height: 52px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+        font-size: 22px;
+        text-decoration: none;
+      }
+
+      .section {
+        display: grid;
+        grid-template-columns: 190px minmax(0, 1fr);
+        gap: 44px;
+        padding: 56px 0;
+        border-bottom: 1px solid var(--line-strong);
+        scroll-margin-top: 58px;
+      }
+
+      .section-index {
+        position: sticky;
+        top: 92px;
+        align-self: start;
+      }
+
+      .section-index .index-no {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+
+      .section-index h2 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .section-intro {
+        max-width: 850px;
+        margin: 0 0 64px;
+        font-size: clamp(28px, 4.1vw, 52px);
+        font-weight: 650;
+        letter-spacing: -0.055em;
+        line-height: 1.24;
+      }
+
+      .section-intro .marker {
+        background: linear-gradient(
+          transparent 66%,
+          color-mix(in srgb, var(--signal) 76%, transparent) 0
+        );
+        background-repeat: no-repeat;
+        background-size: 0 100%;
+        transition: background-size 720ms cubic-bezier(0.22, 1, 0.36, 1);
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+      }
+
+      .section-intro .marker.is-visible {
+        background-size: 100% 100%;
+      }
+
+
+      .work-intro {
+        max-width: 680px;
+        margin: 0 0 36px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .case {
+        padding: 64px 0;
+        border-top: 1px solid var(--line-strong);
+      }
+
+      .case:first-of-type {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .case-head {
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: start;
+        margin-bottom: 46px;
+      }
+
+      .case-no {
+        color: var(--primary);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .case-title h3 {
+        max-width: 720px;
+        margin: 0;
+        font-size: clamp(24px, 4.2vw, 32px);
+        letter-spacing: -0.055em;
+        line-height: 1.12;
+      }
+
+      .case-title p {
+        max-width: 670px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .case-period {
+        margin-top: 7px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 10px;
+        white-space: nowrap;
+      }
+
+      .case-flow {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: case-step;
+      }
+
+      .case-step {
+        position: relative;
+        display: grid;
+        grid-template-columns: 92px minmax(190px, 0.7fr) minmax(0, 1fr);
+        gap: 30px;
+        padding: 30px 0 34px;
+        counter-increment: case-step;
+      }
+
+
+
+      .case-step::before {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        color: var(--white);
+        background: var(--primary);
+        border-radius: 50%;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 700;
+        content: "0" counter(case-step);
+      }
+
+      .case-step-heading .label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--primary);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .case-step h4 {
+        margin: 0;
+        font-size: 19px;
+        letter-spacing: -0.035em;
+        line-height: 1.4;
+      }
+
+      .case-step-body p,
+      .case-step-body ul {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .case-step-body ul {
+        padding-left: 18px;
+      }
+
+      .case-step-body li + li {
+        margin-top: 8px;
+      }
+
+      .results {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 0.8fr));
+        gap: 14px;
+        margin: 40px 0 42px;
+      }
+
+      .results--two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .result-card {
+        min-height: 160px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--white) 52%, transparent);
+      }
+
+      .result-card:first-child {
+        color: var(--white);
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .result-card strong {
+        display: block;
+        margin: 28px 0 8px;
+        font-size: clamp(28px, 3.3vw, 42px);
+        letter-spacing: -0.05em;
+        line-height: 1.1;
+      }
+
+      .result-card span {
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.6;
+      }
+
+      .result-card:first-child span {
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .stack-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin: 36px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .stack-list li {
+        padding: 6px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.48);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+
+      .evidence-lead {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.6fr);
+        gap: 60px;
+        align-items: end;
+        margin-bottom: 46px;
+      }
+
+      .evidence-lead .section-intro {
+        margin: 0;
+      }
+
+      .evidence-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .documents {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .document {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        min-height: 330px;
+        padding: 26px;
+        border: 1px solid var(--line-strong);
+        color: inherit;
+        background: rgba(255, 253, 248, 0.38);
+        font: inherit;
+        text-align: left;
+        text-decoration: none;
+        touch-action: manipulation;
+        cursor: pointer;
+        transition:
+          color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+          background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .document:hover {
+        color: var(--white);
+        background: var(--primary-deep);
+        border-color: var(--primary-deep);
+      }
+
+      .document:hover .doc-meta,
+      .document:hover p {
+        color: rgba(255, 253, 248, 0.68);
+      }
+
+      .document:hover .doc-arrow {
+        color: var(--signal);
+      }
+
+      .doc-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .doc-meta {
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .doc-meta,
+      .document p,
+      .doc-arrow {
+        transition: color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .doc-arrow {
+        font-size: 20px;
+      }
+
+      .document h3 {
+        margin: auto 0 14px;
+        font-size: 24px;
+        letter-spacing: -0.045em;
+        line-height: 1.25;
+      }
+
+      .document p {
+        min-height: 68px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .evidence-disclosure {
+        margin: 18px 0 0;
+        color: var(--faint);
+        font-size: 11px;
+      }
+
+      .case-dialog {
+        width: min(740px, calc(100% - 48px));
+        max-height: calc(100svh - 64px);
+        margin: auto;
+        padding: 0;
+        overflow: auto;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--line-strong);
+        border-radius: 18px;
+        box-shadow: 0 28px 90px rgba(23, 25, 21, 0.28);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .case-dialog::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+      }
+
+      .case-dialog::backdrop {
+        background: rgba(23, 25, 21, 0.58);
+        backdrop-filter: blur(5px);
+      }
+
+      .case-dialog-inner {
+        padding: 34px;
+      }
+
+      .case-dialog-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 32px;
+      }
+
+      .case-dialog-kicker {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--primary);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .case-dialog h3 {
+        max-width: 590px;
+        margin: 0;
+        font-size: clamp(28px, 4vw, 42px);
+        letter-spacing: -0.055em;
+        line-height: 1.15;
+      }
+
+      .case-dialog-close {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 auto;
+        padding: 0;
+        place-items: center;
+        color: var(--ink);
+        background: transparent;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .case-dialog-intro {
+        max-width: 680px;
+        margin: 26px 0 10px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .case-dialog-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 28px;
+        margin-top: 28px;
+      }
+
+      .case-dialog-section {
+        padding: 24px 0 26px;
+        border-top: 1px solid var(--line);
+      }
+
+      .case-dialog-section span {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--primary);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .case-dialog-section h4 {
+        margin: 0 0 11px;
+        font-size: 17px;
+        letter-spacing: -0.035em;
+        line-height: 1.4;
+      }
+
+      .case-dialog-section p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12.5px;
+        line-height: 1.75;
+      }
+
+      .case-dialog-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin: 4px 0 0;
+        padding: 20px 0 0;
+        border-top: 1px solid var(--line-strong);
+        list-style: none;
+      }
+
+      .case-dialog-stack li {
+        padding: 6px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.48);
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+
+      .case-dialog--detail {
+        width: min(880px, calc(100% - 48px));
+      }
+
+      .case-dialog-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 28px 0 8px;
+        padding: 0;
+        border: 1px solid var(--line-strong);
+        list-style: none;
+      }
+
+      .case-dialog-metrics li {
+        min-width: 0;
+        padding: 18px 20px;
+      }
+
+      .case-dialog-metrics li + li {
+        border-left: 1px solid var(--line);
+      }
+
+      .case-dialog-metrics span {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .case-dialog-metrics strong {
+        display: block;
+        font-size: 19px;
+        letter-spacing: -0.04em;
+        line-height: 1.3;
+      }
+
+      .case-dialog-architecture {
+        margin-top: 30px;
+        padding: 24px;
+        color: var(--white);
+        background: var(--ink);
+        border-radius: 12px;
+      }
+
+      .case-dialog-architecture > span {
+        display: block;
+        margin-bottom: 17px;
+        color: var(--signal);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .architecture-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .architecture-card {
+        padding: 18px;
+        background: rgba(255, 253, 248, 0.07);
+        border: 1px solid rgba(255, 253, 248, 0.16);
+        border-radius: 8px;
+      }
+
+      .architecture-card h4 {
+        margin: 0 0 8px;
+        color: var(--signal);
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .architecture-card p {
+        margin: 0;
+        color: var(--white);
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.55;
+      }
+
+      .architecture-card small {
+        display: block;
+        margin-top: 9px;
+        color: rgba(255, 253, 248, 0.58);
+        font-size: 10.5px;
+        line-height: 1.65;
+      }
+
+      .case-dialog-section--wide {
+        grid-column: 1 / -1;
+      }
+
+      .case-dialog-points {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 24px;
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .case-dialog-points li {
+        position: relative;
+        padding-left: 15px;
+        color: var(--muted);
+        font-size: 12.5px;
+        line-height: 1.7;
+      }
+
+      .case-dialog-points li::before {
+        position: absolute;
+        top: 0.72em;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        background: var(--signal);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .case-dialog-note {
+        margin: 2px 0 24px;
+        padding: 18px 20px;
+        background: rgba(217, 255, 83, 0.14);
+        border-left: 3px solid var(--signal);
+      }
+
+      .case-dialog-note strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 12px;
+      }
+
+      .case-dialog-note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11.5px;
+        line-height: 1.7;
+      }
+
+      body:has(.case-dialog[open]) {
+        overflow: hidden;
+      }
+
+      body.dialog-open {
+        overflow: hidden;
+      }
+
+      .dialog-backdrop-fallback {
+        position: fixed;
+        z-index: 1000;
+        inset: 0;
+        background: rgba(23, 25, 21, 0.58);
+        backdrop-filter: blur(5px);
+      }
+
+      .case-dialog.is-fallback-open {
+        position: fixed;
+        z-index: 1001;
+        inset: 32px 24px;
+        display: block;
+        margin: auto;
+      }
+
+      .career {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .career-company {
+        padding: 42px 0;
+        border-top: 1px solid var(--line-strong);
+      }
+
+
+      .company-overview {
+        display: grid;
+        grid-template-columns: 150px minmax(210px, 0.68fr) minmax(0, 1fr);
+        gap: 26px;
+        align-items: start;
+      }
+
+      .company-period {
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 10px;
+        line-height: 1.7;
+      }
+
+      .company-period strong {
+        display: block;
+        margin-top: 4px;
+        color: var(--primary);
+        font-family: var(--sans);
+        font-size: 12px;
+      }
+
+      .company-title h3 {
+        margin: 0 0 7px;
+        font-size: 24px;
+        letter-spacing: -0.045em;
+      }
+
+      .company-title span {
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .company-summary {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .company-projects {
+        margin: 36px 0 0 176px;
+        padding: 0;
+        padding-left: 24px;
+        list-style: none;
+        border-left : 1px solid var(--line);
+      }
+
+      .company-project {
+        display: grid;
+        grid-template-columns: minmax(180px, 0.72fr) minmax(0, 1fr);
+        gap: 34px;
+        padding: 24px 0;
+      }
+
+      .project-id {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+
+      .project-id h4 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .project-id span {
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      .company-project p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+
+      .project-detail {
+        min-width: 0;
+      }
+
+      .project-tasks {
+        margin: 12px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+
+      .project-tasks li {
+        padding-left: 4px;
+      }
+
+      .project-tasks li + li {
+        margin-top: 6px;
+      }
+
+      .project-tasks li::marker {
+        color: var(--muted);
+      }
+
+      .closing {
+        padding: 118px 0 68px;
+        color: var(--white);
+        background: var(--ink);
+      }
+
+      .closing-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 72px;
+        align-items: end;
+      }
+
+      .closing .eyebrow {
+        color: var(--signal);
+      }
+
+      .closing .eyebrow::before {
+        border-color: var(--signal);
+      }
+
+      .closing h2 {
+        max-width: 820px;
+        margin: 28px 0 24px;
+        font-size: clamp(40px, 6.7vw, 84px);
+        letter-spacing: -0.065em;
+        line-height: 1.02;
+      }
+
+      .closing p {
+        max-width: 570px;
+        margin: 0;
+        color: rgba(255, 253, 248, 0.62);
+        font-size: 15px;
+      }
+
+      .contact-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+      }
+
+      .contact-stack a {
+        font-family: var(--mono);
+        font-size: 12px;
+        text-underline-offset: 5px;
+      }
+
+      .contact-stack a:hover {
+        color: var(--signal);
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin-top: 96px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(255, 253, 248, 0.18);
+        color: rgba(255, 253, 248, 0.42);
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      @media (min-width: 921px) and (max-width: 1000px) {
+        .company-project {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+      }
+
+      @media (max-width: 920px) {
+        .topbar {
+          display: none;
+        }
+
+        .section {
+          grid-template-columns: 132px minmax(0, 1fr);
+          gap: 30px;
+        }
+
+        .case-head {
+          grid-template-columns: 70px minmax(0, 1fr);
+        }
+
+        .case-period {
+          grid-column: 2;
+          margin-top: -12px;
+        }
+
+        .case-step {
+          grid-template-columns: 64px minmax(170px, 0.62fr) minmax(0, 1fr);
+          gap: 22px;
+        }
+
+        .evidence-lead {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .company-overview {
+          grid-template-columns: 120px minmax(0, 1fr);
+        }
+
+        .company-summary {
+          grid-column: 2;
+        }
+
+        .company-projects {
+          margin-left: 144px;
+        }
+
+        .company-project {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          width: min(calc(100% - 32px), var(--content));
+        }
+
+        .topbar-inner {
+          min-height: 54px;
+        }
+
+        .contact-link {
+          font-size: 11px;
+        }
+
+        .hero-main {
+          min-height: auto;
+          padding: 64px 0 42px;
+        }
+
+        .hero h1 {
+          margin-top: 24px;
+          font-size: clamp(34px, 10.8vw, 48px);
+        }
+
+        .hero-lead {
+          font-size: 16px;
+        }
+
+        .hero-foot {
+          align-items: start;
+          margin-top: 56px;
+        }
+
+        .section {
+          display: block;
+          padding: 56px 0;
+          scroll-margin-top: 54px;
+        }
+
+        .section-index {
+          position: static;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 48px;
+          padding-bottom: 14px;
+          border-bottom: 1px solid var(--line-strong);
+        }
+
+        .section-index .index-no {
+          margin: 0;
+          order: 2;
+        }
+
+        .section-index h2 {
+          font-size: 14px;
+        }
+
+        .section-intro {
+          margin-bottom: 46px;
+          font-size: 32px;
+        }
+
+        .case {
+          padding: 52px 0;
+        }
+
+        .case-head {
+          display: block;
+          margin-bottom: 34px;
+        }
+
+        .case-no {
+          display: block;
+          margin-bottom: 16px;
+        }
+
+        .case-period {
+          display: block;
+          margin-top: 20px;
+          margin-bottom: 0;
+        }
+
+        .case-title h3 {
+          font-size: 34px;
+        }
+
+        .case-step {
+          grid-template-columns: 52px minmax(0, 1fr);
+          gap: 16px;
+          padding: 26px 0 30px;
+        }
+
+        .case-step::before {
+          width: 34px;
+          height: 34px;
+        }
+
+        .case-step-body {
+          grid-column: 2;
+        }
+
+        .results {
+          grid-template-columns: 1fr;
+        }
+
+        .result-card {
+          min-height: 0;
+        }
+
+        .documents {
+          grid-template-columns: 1fr;
+        }
+
+        .document {
+          min-height: 285px;
+        }
+
+        .case-dialog-inner {
+          padding: 26px 22px;
+        }
+
+        .case-dialog-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .case-dialog-section--wide {
+          grid-column: auto;
+        }
+
+        .case-dialog-metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .case-dialog-metrics li + li {
+          border-top: 1px solid var(--line);
+          border-left: 0;
+        }
+
+        .architecture-grid,
+        .case-dialog-points {
+          grid-template-columns: 1fr;
+        }
+
+        .case-dialog h3 {
+          font-size: 30px;
+        }
+
+        .company-overview {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .company-summary {
+          grid-column: auto;
+          margin-top: 8px;
+        }
+
+        .company-projects {
+          margin-left: 0;
+        }
+
+        .closing {
+          padding-top: 86px;
+        }
+
+        .closing-inner {
+          grid-template-columns: 1fr;
+          gap: 52px;
+        }
+
+        .contact-stack {
+          align-items: flex-start;
+        }
+
+        .footer {
+          align-items: flex-start;
+          flex-direction: column;
+          margin-top: 72px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .document {
+          min-height: 190px;
+          padding: 12px;
+        }
+
+        /* 모달을 화면 하단에 붙는 바텀시트 형태로 전환 */
+        .case-dialog {
+          position: fixed;
+          inset: auto 0 0;
+          width: 100%;
+          max-width: none;
+          max-height: 84svh;
+          margin: 0;
+          border-width: 1px 0 0;
+          border-radius: 20px 20px 0 0;
+          box-shadow: 0 -20px 60px rgba(23, 25, 21, 0.32);
+          transform: none;
+        }
+
+        .case-dialog.is-fallback-open {
+          inset: auto 0 0;
+          margin: 0;
+        }
+
+        .case-dialog[open] {
+          animation: case-dialog-sheet-in 320ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes case-dialog-sheet-in {
+          from {
+            transform: translateY(100%);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+
+        .case-dialog-inner {
+          padding: 22px 18px max(22px, env(safe-area-inset-bottom) + 14px);
+        }
+
+        /* 시트 상단 그랩 핸들 */
+        .case-dialog-inner::before {
+          display: block;
+          width: 36px;
+          height: 4px;
+          margin: 0 auto 18px;
+          border-radius: 999px;
+          background: var(--line-strong);
+          content: "";
+        }
+
+        .case-dialog-head {
+          gap: 14px;
+        }
+
+        .case-dialog h3 {
+          font-size: 22px;
+          letter-spacing: -0.038em;
+          line-height: 1.35;
+        }
+
+        /* 좁은 폭에서는 강제 줄바꿈 대신 자연스럽게 흐르도록 */
+        .case-dialog h3 br {
+          display: none;
+        }
+
+        .case-dialog-close {
+          width: 34px;
+          height: 34px;
+          font-size: 17px;
+        }
+
+        .case-dialog-intro {
+          margin: 20px 0 6px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .case-dialog {
+          animation: none;
+          transition: none;
+        }
+
+        .section-intro .marker {
+          background-size: 100% 100%;
+          transition: none;
+        }
+
+        .document,
+        .doc-meta,
+        .document p,
+        .doc-arrow {
+          transition: none;
+        }
+      }
+
+      @media print {
+        :root {
+          --paper: #ffffff;
+        }
+
+        body::before,
+        .topbar,
+        .down-link {
+          display: none;
+        }
+
+        .shell {
+          width: 100%;
+          max-width: none;
+        }
+
+        .hero {
+          min-height: 0;
+        }
+
+        .hero-main,
+        .section,
+        .closing {
+          padding-top: 48px;
+          padding-bottom: 48px;
+        }
+
+        .section-index {
+          position: static;
+        }
+
+        .case,
+        .document,
+        .career-company {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <nav class="topnav" aria-label="주요 메뉴">
+          <a href="#career">Career</a>
+          <a href="#work">Selected work</a>
+          <a href="#evidence">Evidence</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="shell hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-main">
+          <div>
+            <p class="eyebrow">Frontend engineer · Web3 / Fintech</p>
+            <h1 id="hero-title">
+문제를 기다리지 않고,
+<br />제품의 변화를 직접 만듭니다.
+            </h1>
+            <p class="hero-lead">
+              불편을 관찰하는 데서 그치지 않고, 근거 있는 대안 제시부터
+              구현까지 주도적으로 이끌어갑니다.
+              <strong
+                ><br />팀에 능동성과 문제해결의식을 더하는 프론트엔드 엔지니어
+                신재민입니다.</strong
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="shell section" id="career" aria-labelledby="career-title">
+        <div class="section-index">
+          <span class="index-no">01 / 03</span>
+          <h2 id="career-title">Career</h2>
+        </div>
+
+        <div>
+          <p class="section-intro">
+            먼저, <span class="marker">어디에서 어떤 제품을</span> 만들어
+            왔는지 소개합니다.
+          </p>
+
+          <ol class="career">
+            <li class="career-company">
+              <div class="company-overview">
+                <div class="company-period">
+                  2022.03 — 2026.07
+                  <strong>4년 5개월</strong>
+                </div>
+                <div class="company-title">
+                  <h3>Alocados Corp</h3>
+                  <span>Frontend Developer</span>
+                </div>
+                <p class="company-summary">
+                  Web3 커뮤니티 앱, 핀테크 플랫폼, HR 서비스와 관리자 시스템을
+                  개발했습니다.
+                  Frontend 구현에 머무르지 않고 제품 기획, UI/UX 개선 제안,
+                  Design System, Backoffice 개발 등 제품에 필요한 여러 역할을
+                  맡았습니다. 특히 실제 사용 흐름에서 불편을 발견하고,
+                  대안 제시, 제품 개발까지 연결하는 데
+                  집중했습니다.
+                </p>
+              </div>
+
+              <ol class="company-projects" aria-label="Alocados Corp 프로젝트">
+                <li class="company-project">
+                  <div class="project-id">
+                    <h4>Versus</h4>
+                    <span>2025.06 — 2026.07 · 1년2개월</span>
+                  </div>
+                  <div class="project-detail">
+                    <p>
+                      On-chain·Off-chain 하이브리드 CLOB 기반 DeFi P2P 헷징
+                      마켓플레이스. 초기 기반 구축부터 알파 출시, V2 전면 리뉴얼,
+                      Public 런칭 준비까지 참여했습니다.
+                    </p>
+                    <ul class="project-tasks">
+                      <li>
+                        프로필·포트폴리오·리더보드·포인트와 거래·자산 관리 기능
+                        개발, API 규격·서버·On-chain 사용자 데이터의 V2 전환
+                      </li>
+                      <li>
+                        Chrome Wallet Extension 기반 인증을 Magic Labs, Privy로
+                        전환하고 SDK Session·서버 계정·Cookie·지역 제한·Onboarding
+                        상태를 순차적으로 검증
+                      </li>
+                      <li>
+                        비동기 거래의 Pending·체결 상태를 Polling·알림·캐시
+                        무효화로 동기화하고 거래 단계·예외별 UI·메시지 명세
+                      </li>
+                      <li>
+                        중단 지점부터 재개할 수 있는 3단계 V1→V2 자산 Migration
+                        Flow를 구현해 이전 대상자 25명의 자산 이전 완료
+                      </li>
+                      <li>
+                        실제 사용 흐름을 바탕으로 14개 UX 개선안을 제안하고,
+                        Prototype·팀 검증을 거쳐 채택된 12건을 명세·개발로 연결
+                      </li>
+                      <li>
+                        API·인증·Query Key·Overlay를 공통 Layer로 정리하고 V2
+                        Design System·Dark Mode 기반 구축
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="company-project">
+                  <div class="project-id">
+                    <h4>i18n-checker</h4>
+                    <span>2025.06</span>
+                  </div>
+                  <div class="project-detail">
+                    <p>
+                      코드와 Google Sheets로 분리된 번역 키를 자동 검증·정리하는
+                      사내 CLI.
+                    </p>
+                    <ul class="project-tasks">
+                      <li>
+                        Babel AST로 실제 i18n Function Call을 추출해 코드·번역
+                        리소스 정합성 검증 자동화
+                      </li>
+                      <li>
+                        미사용·중복 번역 키를 안전하게 정리하는
+                        Cleanup·Deduplication Workflow 구축
+                      </li>
+                      <li>
+                        핵심 로직·패키징 테스트 11종과 GitHub Packages 배포 체계를
+                        구성해 여러 프로젝트에 동일한 검증 규격 제공
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="company-project">
+                  <div class="project-id">
+                    <h4>Nepto</h4>
+                    <span>2023.04 — 2025.06 · 2년 3개월</span>
+                  </div>
+                  <div class="project-detail">
+                    <p>React Native 기반 Web3 SocialFi 메신저·커뮤니티 서비스.</p>
+                    <ul class="project-tasks">
+                      <li>
+                        전화번호·지갑 기반 가입·인증과 토큰 게이팅 커뮤니티·채널·
+                        권한·멤버 관리 기능 개발
+                      </li>
+                      <li>
+                        다중 Transaction의 부분 실패·Rollback·재서명과 화면 이탈
+                        복구 Flow 설계
+                      </li>
+                      <li>
+                        DM·커뮤니티 채팅의 공통 UI 통합 및 도메인 로직 분리
+                      </li>
+                      <li>
+                        범위 조회·Cursor 기반 Pagination과 App Lifecycle 동기화로
+                        Rendering을 10–20ms, 방 입장을 0.69ms로 단축
+                      </li>
+                      <li>
+                        복호화 실패 시 키 교환 요청을 중복 제거하고 오프라인·앱
+                        재시작 후에도 메시지를 복원·재전송하는 복구 구조 설계
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="company-project">
+                  <div class="project-id">
+                    <h4>Nepto CodePush Server (OTA)</h4>
+                    <span>2024.10 — 2024.11</span>
+                  </div>
+                  <div class="project-detail">
+                    <p>
+                      React Native 앱의 JavaScript Bundle 배포·관리를 위한
+                      Self-hosted OTA 서비스.
+                    </p>
+                    <ul class="project-tasks">
+                      <li>
+                        기존 앱·CLI Flow를 유지하는 Self-hosted OTA 배포 체계를
+                        구축해 수일 걸리던 Hotfix를 수분 단위로 전환
+                      </li>
+                      <li>
+                        약 30개 Storage Interface를 보존한 채 Azure 구현체를 AWS로
+                        이관해 기존 SDK·CLI API 호환성 100% 유지
+                      </li>
+                      <li>
+                        메타데이터는 DynamoDB, 대용량 Release Bundle은 S3로 분리해
+                        API Server 다운로드 트래픽 제거
+                      </li>
+                      <li>
+                        기존 EKS에 배포하고 End-to-End OTA Flow와 GitHub Actions
+                        Pipeline, 이미지 추적·Secret·Health Probe 구성
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="company-project">
+                  <div class="project-id">
+                    <h4>Gracy</h4>
+                    <span>2022.03 — 2023.02 · 1년</span>
+                  </div>
+                  <div class="project-detail">
+                    <p>사내 칭찬문화 HR 서비스.</p>
+                    <ul class="project-tasks">
+                      <li>
+                        Vue 기반 서비스·백오피스 약 20개 페이지를 React로 전환하고
+                        다국어 적용
+                      </li>
+                      <li>
+                        Slack 인증 전후의 가입 상태와 복귀 경로를 재설계해 중단
+                        없는 가입 UX 구현
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ol>
+            </li>
+
+          </ol>
+        </div>
+      </section>
+
+      <section class="shell section" id="work" aria-labelledby="work-title">
+        <div class="section-index">
+          <span class="index-no">02 / 03</span>
+          <h2 id="work-title">Selected work</h2>
+        </div>
+
+        <div>
+          <p class="work-intro">
+            관찰한 문제를 근거와 구현으로 해결한 대표 사례입니다.
+          </p>
+          <article class="case">
+            <div class="case-head">
+              <span class="case-no">CASE 01</span>
+              <div class="case-title">
+                <h3>잘못된 UX 설계,<br />14가지 개선안을 제시했습니다.</h3>
+                <p>
+                  사용자의 Core Action을 방해하는 잘못된 UI/UX를
+                  발견했습니다. 대형 서비스와 비교하며 근거를 만들고, 일부 화면에서
+                  방향을 먼저 반영한 뒤 제안·명세·개발로 연결했습니다.
+                </p>
+              </div>
+              <span class="case-period">VERSUS · 2025—2026</span>
+            </div>
+
+            <div class="results results--two" aria-label="Versus UX 개선 결과">
+              <div class="result-card">
+                <strong>평균 9% → 16%</strong>
+                <span>일간 평균 Core Action 전환 수</span>
+              </div>
+              <div class="result-card">
+                <strong>12 / 14</strong>
+                <span>UX 개선안 채택 · 14개 제안</span>
+              </div>
+            </div>
+
+            <ol class="case-flow" aria-label="UX 개선 과정">
+              <!-- 1. Problem -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Problem</span>
+                  <h4>Core Action을 방해하는 UI/UX</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    Beta 출시 전후의 화면은 같은 정보가 여러 위치에 반복될 뿐만 아니라, 불필요한 정보가 너무 크게 강조되고 있었습니다.
+                    사용자가 서비스 내에서 제공받아야 할 Core Action까지는 여러 단계를 거쳐야 한다는 점을 문제로 인지하게 되었습니다. <br/>팀에서 별도 문제로
+                    다루기 전이었지만, 빠르게 개선을 할 필요가 있다고 생각했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 2. Evidence -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Evidence</span>
+                  <h4>대형 서비스 UX 패턴 비교</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    사용자가 필요한 정보를 수집하고, 서비스 이동을 거쳐 Core
+                    Action까지 도달하는 과정을 Versus와 대형 서비스에서 Feature
+                    단위로 나눠 비교했습니다. 각 단계에서 나타나는 정보 구조와
+                    이동 방식의 차이를 정리했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 3. Buy-in -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Buy-in</span>
+                  <h4>시각적 비교로 개선 필요성을 설득</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    문서만으로 설명하는 대신 일부 화면에 개선 방향을 먼저 적용해
+                    Before·After 시안을 만들었습니다. 기존 화면의 문제와 변화
+                    방향을 한눈에 비교할 수 있게 제시해 개선 필요성에 대한 팀의
+                    동의를 이끌어냈습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 4. Execution -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Execution</span>
+                  <h4>12개 개선안의 프로덕트 반영</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    공통 Navigation·프로필·거래 과정을 포함한 14가지 개선안을
+                    제시했고, 이 가운데 12개가 채택됐습니다. 채택된 개선안은
+                    상세 Data와 Edge Case, 사용자 시나리오까지 명세화해 직접
+                    구현했습니다.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </article>
+          <article class="case">
+            <div class="case-head">
+              <span class="case-no">CASE 02</span>
+              <div class="case-title">
+                <h3>
+                  메시지가 쌓여도 빠르게 이어지는<br />채팅 UX를 만들었습니다.
+                </h3>
+                <p>
+                  같은 채팅 화면에서 발생했지만 원인은 달랐습니다. 메시지가
+                  쌓일수록 Query·State Update·Rendering 비용이 커졌고, Room
+                  Entry에서는 Member·Read State Sync가 반복됐습니다. 두
+                  Pipeline을 나눠 측정하고 Data Range와 Execution Timing을 각각
+                  다시 설계했습니다.
+                </p>
+              </div>
+              <span class="case-period">NEPTO · 2023—2025</span>
+            </div>
+
+            <div class="results" aria-label="Nepto 개선 결과">
+              <div class="result-card">
+                <strong>10–20ms</strong>
+                <span>Message Rendering · 기존 약 300–400ms</span>
+              </div>
+              <div class="result-card">
+                <strong>0.69ms</strong>
+                <span>신규 메시지 Room Entry · 기존 300.08ms</span>
+              </div>
+              <div class="result-card">
+                <strong>O(n) → O(1)</strong>
+                <span>표시 속성 계산 · Full List → Insertion Point</span>
+              </div>
+            </div>
+
+            <ol class="case-flow" aria-label="Nepto 두 가지 성능 개선 과정">
+              <!-- 1. Problem -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Problem</span>
+                  <h4>같은 느림처럼 보였지만 원인이 다른 두 병목</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    대용량 DM에서는 Full Message List를 읽은 뒤 일부만
+                    Rendering하는 비용으로 화면이 멈추거나 앱이 종료됐습니다.
+                    반면 채팅방 입장 지연은 방마다 공통 Member·Read State Sync를
+                    다시 실행하는 구조에서 발생했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 2. Profiling -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Profiling</span>
+                  <h4>Query·Rendering과 Room Entry 비용을 분리</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    DB Query, UI State Update, List Rendering, Member·Read State
+                    Computation의 실행 시간을 나눠 측정했습니다. Message 수에 따라
+                    커지는 Rendering 비용과 입장할 때마다 반복되는 공통 Sync가
+                    별개의 병목임을 확인했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 3. Message Rendering -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Rendering</span>
+                  <h4>필요한 Message Range만 조회하고 다시 계산</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    Rendering은 다른 개발자와 방향과 범위를 나눠 개선했습니다.
+                    Initial Load·Previous·Latest마다 필요한 Range만 Cursor-based
+                    Query로 가져와 Store에 Merge하고, Insertion Point와 Page
+                    Boundary 주변만 재연산했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 4. Room Entry -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Room Entry</span>
+                  <h4>공통 Sync를 App Lifecycle로 이동</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    채팅방에 입장할 때마다 실행되던 Member·Read State Sync를 App
+                    Launch·Foreground Transition·Socket Event 시점으로 옮겼습니다.
+                    Room Entry에서는 RealmDB에 반영된 현재 State로 Message Load를
+                    바로 이어가도록 구현했습니다.
+                  </p>
+                </div>
+              </li>
+            </ol>
+
+            <ul class="stack-list" aria-label="Nepto 기술 스택">
+              <li>React Native</li>
+              <li>TypeScript</li>
+              <li>Realm DB</li>
+              <li>Zustand</li>
+              <li>Socket</li>
+              <li>FlashList</li>
+            </ul>
+          </article>
+
+          <article class="case">
+            <div class="case-head">
+              <span class="case-no">CASE 03</span>
+              <div class="case-title">
+                <h3>아무도 맡지 않던 레거시를,<br />아무도 손대지 않는 자동화로 바꿨습니다.</h3>
+                <p>
+                  코드와 번역 시트가 어긋나도 개발·디자인·기획 어느 팀이
+                  정리할지 모호했습니다. Sheet에 3천개가 넘는 번역 키값이 쌓여가는 것을
+                  근거로 공통 문제를 정의하고, Validation부터 Sheet Cleanup까지
+                  이어지는 CLI와 Automation Workflow를 만들었습니다.
+                </p>
+              </div>
+              <span class="case-period">ALOCADOS · 사내 공용 CLI</span>
+            </div>
+
+            <div class="results results--two" aria-label="i18n-checker 적용 결과">
+              <div class="result-card">
+                <strong>8개 프로젝트</strong>
+                <span>i18n-checker 적용</span>
+              </div>
+              <div class="result-card">
+                <strong>0%</strong>
+                <span>AST 기반 i18n Key 추출 오탐률</span>
+              </div>
+            </div>
+
+            <ol class="case-flow" aria-label="i18n-checker 개발 과정">
+              <!-- 1. Problem -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Problem</span>
+                  <h4>역할 사이에 남아 계속 쌓이는 번역 레거시</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    세 차례의 마이그레이션 뒤 코드와 Google Sheets가 분리됐고,
+                    정리 주체도 정해지지 않았습니다. 담당자가 바뀔 때마다 수동
+                    확인이 반복되면서 Legacy Key가 실제 번역 업무까지
+                    방해했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 2. Evidence -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Evidence</span>
+                  <h4>Source Code와 Sheet의 불일치를 세 유형으로 확인</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    Source Code에만 있는 Missing Key, Sheet에만 남은 Unused Key,
+                    여러 Tab의 Duplicated Key를 구분했습니다. Source File과
+                    Sheet를 사람이 대조하는 방식으로는 누락을 안정적으로 찾거나
+                    정리 상태를 유지하기 어렵다는 근거가 분명해졌습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 3. Decision -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Decision</span>
+                  <h4>특정 담당자가 아닌 세 팀이 직접 쓰는 도구</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    정리 업무를 다른 담당자에게 넘기는 대신, 개발팀에서 자동으로 실행할 수 있는 공용 CLI를 제안했습니다.
+                    Validation Result가 곧 Source Location과 Sheet Cleanup으로
+                    이어지는 흐름을 기준으로 도구의 범위를 정했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 4. Execution -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Execution</span>
+                  <h4>AST Validation부터 Sheet Cleanup까지 자동화</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    Babel AST로 실제 i18n Function Call만 추출하고 Source
+                    Code와 Sheet의 Set Difference를 계산했습니다. Production
+                    Deploy 시 GitHub Actions가 Unused Key Cleanup과
+                    Deduplication을 수행하게 해, 필요했지만 미뤄지고 있던 Task를 처리했습니다.
+                  </p>
+                </div>
+              </li>
+            </ol>
+
+            <ul class="stack-list" aria-label="i18n-checker 기술 스택">
+              <li>TypeScript</li>
+              <li>Node.js</li>
+              <li>node:test</li>
+              <li>npm pack</li>
+              <li>@babel/parser</li>
+              <li>Google Sheets API</li>
+              <li>Commander</li>
+              <li>GitHub Actions</li>
+              <li>GitHub Packages</li>
+            </ul>
+          </article>
+
+          <article class="case" id="codepush-case">
+            <div class="case-head">
+              <span class="case-no">CASE 04</span>
+              <div class="case-title">
+                <h3>
+                  Beta에서 확인한 Update 피로,<br />출시 전 OTA로 해결했습니다.
+                </h3>
+                <p>
+                  TestFlight 운영에서 확인한 Update 마찰이 실제 사용자에게 이어지지
+                  않도록 OTA 도입을 추진했습니다. App Center 종료에 대응해 AWS
+                  기반 Self-hosted CodePush를 구축했습니다.
+                </p>
+              </div>
+              <span class="case-period">NEPTO · 2024</span>
+            </div>
+
+            <ol class="case-flow" aria-label="OTA 도입 및 AWS 전환 과정">
+              <!-- 1. Problem -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Problem</span>
+                  <h4>TestFlight 배포에서 생긴 Update 마찰과 Version Gap</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    Beta 기간에는 UI 수정과 기능 보완이 잦았습니다. OTA 도입
+                    전에는 변경된 내용을 확인하기 위해 새로운 TestFlight Build를
+                    배포해야 했고, Tester 기기에도 해당 Build가 새로 설치되어야
+                    했습니다. 일부 Tester에게 최신 Build가 설치되지 않아
+                    서로 다른 Build로 앱을 사용하는 상황을 확인했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 2. Evidence -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Evidence</span>
+                  <h4>최신 개선을 바로 전달하는 OTA 필요성 확인</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    이 경험을 통해 정식 출시 후에도 개선 사항이 사용자에게 늦게
+                    전달되는 문제가 반복될 수 있다고 판단했습니다. Native 변경이
+                    없는 JavaScript·Asset Update를 별도의 App Build 설치 없이
+                    전달할 수 있도록, 출시 전에 OTA 배포 기반을 마련하고자
+                    했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 3. Decision -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Decision</span>
+                  <h4>출시 이후까지 지속 가능한 Self-hosted OTA 설계</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    App Center 종료가 출시 약 1년 뒤로 예정되어 있어 Expo OTA와
+                    Standalone CodePush를 비교했습니다. 가장 중요한 판단 기준은 운영
+                    비용이었고, Expo OTA의 비용 부담이 가장 컸습니다. 기존 Client
+                    SDK·CLI 호환성과 사내 AWS·EKS Runtime을 함께 고려해 Self-hosted
+                    방식을 선택했습니다.
+                  </p>
+                </div>
+              </li>
+
+              <!-- 4. Execution -->
+              <li class="case-step">
+                <div class="case-step-heading">
+                  <span class="label">Execution</span>
+                  <h4>출시 환경에서 사용할 Self-hosted OTA Flow 완성</h4>
+                </div>
+                <div class="case-step-body">
+                  <p>
+                    기존 Storage Interface와 API를 유지한 채
+                    Azure Storage를 S3·DynamoDB로 교체했습니다. 변경한 Server를
+                    기존 EKS 환경에 Deploy하고, CLI Release Registration부터
+                    Client Update Check와 S3 Bundle Download까지 실제 OTA Flow를
+                    확인했습니다.
+                  </p>
+                </div>
+              </li>
+            </ol>
+
+            <ul class="stack-list" aria-label="CodePush 인프라 기술 스택">
+              <li>Node.js</li>
+              <li>TypeScript</li>
+              <li>Express</li>
+              <li>AWS SDK v3</li>
+              <li>S3</li>
+              <li>DynamoDB</li>
+              <li>Kubernetes</li>
+              <li>Amazon EKS</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="shell section"
+        id="evidence"
+        aria-labelledby="evidence-title">
+        <div class="section-index">
+          <span class="index-no">03 / 03</span>
+          <h2 id="evidence-title">Evidence</h2>
+        </div>
+
+        <div>
+          <div class="evidence-lead">
+            <p class="section-intro">
+              무엇을 만들었는지보다,<br />
+              <span class="marker">왜 그렇게 만들었는지</span>를 보여드립니다.
+            </p>
+            <p class="evidence-note">
+              실무에서 마주한 문제와 해결 과정을 공개 가능한 범위에서 정리했습니다.
+            </p>
+          </div>
+
+          <div class="documents">
+            <a
+              class="document"
+              href="evidence/ux-improvements.html">
+              <span class="doc-top">
+                <span class="doc-meta">CASE 01 · Product discovery</span>
+                <span class="doc-arrow" aria-hidden="true">→</span>
+              </span>
+              <h3>Beta의 UX 격차를 바꾼 14가지 개선안</h3>
+              <p>
+                User Flow를 관찰해 약 14개의 개선안을 제안하고, 채택된 개선안에
+                대한 Specification·Implementation까지 연결했습니다.
+              </p>
+            </a>
+
+            <a
+              class="document"
+              href="evidence/chat-performance.html">
+              <span class="doc-top">
+                <span class="doc-meta">CASE 02 · Performance</span>
+                <span class="doc-arrow" aria-hidden="true">→</span>
+              </span>
+              <h3>수천 개 메시지와 느린 방 입장을 함께 해결한 채팅 최적화</h3>
+              <p>
+                필요한 Message Range만 처리하고 공통 Sync를 App Lifecycle로
+                옮겨, Rendering과 Room Entry의 병목을 하나의 Pipeline에서
+                개선했습니다.
+              </p>
+            </a>
+
+            <a
+              class="document"
+              href="evidence/i18n-automation.html">
+              <span class="doc-top">
+                <span class="doc-meta">CASE 03 · Developer experience</span>
+                <span class="doc-arrow" aria-hidden="true">→</span>
+              </span>
+              <h3>아무도 맡지 않던 번역 레거시를 없앤 i18n CLI</h3>
+              <p>
+                역할 사이의 경계에 남겨진 Legacy Task를 공통 과제로 정의하고,
+                i18n Key Validation부터 Sheet Cleanup까지 자동화했습니다.
+              </p>
+            </a>
+
+            <a
+              class="document"
+              href="evidence/codepush-aws.html">
+              <span class="doc-top">
+                <span class="doc-meta">CASE 04 · Update experience</span>
+                <span class="doc-arrow" aria-hidden="true">→</span>
+              </span>
+              <h3>
+                Beta에서 발견한 Update 마찰을 출시 전에 해결한 과정
+              </h3>
+              <p>
+                TestFlight 운영에서 확인한 피로가 실제 사용자에게 이어지지 않도록
+                AWS 기반 Self-hosted CodePush를 구축했습니다.
+              </p>
+            </a>
+          </div>
+
+
+          <dialog
+            class="case-dialog case-dialog--detail"
+            id="dm-rendering-dialog"
+            aria-labelledby="dm-rendering-title">
+            <div class="case-dialog-inner">
+              <div class="case-dialog-head">
+                <div>
+                  <span class="case-dialog-kicker">
+                    Performance · Public case note
+                  </span>
+                  <h3 id="dm-rendering-title">
+                    Query·Room Entry·Read State를 분리해,
+                    <br />필요한 Message Range만 Rendering했습니다.
+                  </h3>
+                </div>
+                <form method="dialog">
+                  <button
+                    class="case-dialog-close"
+                    type="submit"
+                    aria-label="DM 렌더링 사례 닫기">
+                    ×
+                  </button>
+                </form>
+              </div>
+
+              <p class="case-dialog-intro">
+                Message Query와 Room Entry, Read State Update가 하나의
+                Pipeline에 얽혀 있었습니다. 각 책임의 Execution Timing과 Data
+                Range를 분리해 채팅 화면의 병목을 개선했습니다.
+              </p>
+
+              <ul class="case-dialog-metrics" aria-label="DM Rendering 개선 요약">
+                <li>
+                  <span>Before</span>
+                  <strong>약 300–400ms</strong>
+                </li>
+                <li>
+                  <span>After</span>
+                  <strong>약 10–20ms</strong>
+                </li>
+                <li>
+                  <span>Query unit</span>
+                  <strong>최신 20개부터</strong>
+                </li>
+              </ul>
+
+              <section
+                class="case-dialog-architecture"
+                aria-labelledby="dm-architecture-title">
+                <span id="dm-architecture-title">Message rendering shift</span>
+                <div class="architecture-grid">
+                  <div class="architecture-card">
+                    <h4>Before · DB → state → rendering</h4>
+                    <p>Full Room Query · Sort → UI State에서 Slice</p>
+                    <small>
+                      Previous·Latest·Target Message Navigation이 하나의 Query
+                      Result를 다시 Filter했고, 한 번의 Load에도 Cursor와 List
+                      State가 함께 Update됐습니다.
+                    </small>
+                  </div>
+                  <div class="architecture-card">
+                    <h4>After · DB → store → rendering</h4>
+                    <p>User Action → Range Query → Store Merge</p>
+                    <small>
+                      Initial Load·Previous·Latest·Target Message Navigation을
+                      분리하고, 각 시점에 필요한 Range만 DB에서 읽어 UI Data로
+                      구성했습니다.
+                    </small>
+                  </div>
+                </div>
+              </section>
+
+              <section
+                class="case-dialog-architecture"
+                aria-labelledby="dm-entry-architecture-title">
+                <span id="dm-entry-architecture-title">Room entry shift</span>
+                <div class="architecture-grid">
+                  <div class="architecture-card">
+                    <h4>Before · Every room entry</h4>
+                    <p>Room Initialize → Member Sync → Message Load</p>
+                    <small>
+                      Left Member와 Member별 Read Cursor를 매번 Query했습니다.
+                      모든 Async Task가 끝난 뒤 ReadCount를 Update해 Room Entry가
+                      Sync Duration의 영향을 받았습니다.
+                    </small>
+                  </div>
+                  <div class="architecture-card">
+                    <h4>After · Lifecycle and socket</h4>
+                    <p>App Lifecycle Sync → Room Entry에서 Current Cursor 사용</p>
+                    <small>
+                      공통 Member Sync는 App Launch와 Foreground Transition으로
+                      옮겼습니다. Socket Event 수신 시 사용자별
+                      <code>last_read_message_id</code>를 갱신했습니다.
+                    </small>
+                  </div>
+                </div>
+              </section>
+
+              <ul class="case-dialog-metrics" aria-label="DM Room Entry 개선 요약">
+                <li>
+                  <span>No new message</span>
+                  <strong>164.65 → 0.22ms</strong>
+                </li>
+                <li>
+                  <span>With new message</span>
+                  <strong>300.08 → 0.69ms</strong>
+                </li>
+                <li>
+                  <span>Sync timing</span>
+                  <strong>앱 시작·포그라운드</strong>
+                </li>
+              </ul>
+
+              <div class="case-dialog-grid">
+                <section class="case-dialog-section">
+                  <span>01 · Constraints</span>
+                  <h4>일반적인 목록과 다른 채팅의 조건</h4>
+                  <p>
+                    최신 메시지가 아래에 놓이는 Inverted List에서 Previous와
+                    Latest 방향을 모두 탐색해야 했습니다. 여기에 Realtime
+                    Insertion, Reply·Link Preview·Image처럼 Render 이후 높이가
+                    바뀌는 Message가 동시에 Scroll Position에 영향을 줬습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>02 · Diagnosis</span>
+                  <h4>프로파일링을 통해 Query·State·Rendering으로 분해</h4>
+                  <p>
+                    Profiling 결과를 DB Query, UI State Update, List Rendering
+                    단계로 나눠 확인했습니다. Full Message List를 먼저 읽고 일부만
+                    사용하는 흐름과, 한 번의 Load에서 여러 State가 연쇄
+                    Update되는 범위를 우선 개선 대상으로 정했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>03 · Query boundary</span>
+                  <h4>네 가지 Navigation Intent를 독립된 Query로 분리</h4>
+                  <p>
+                    Initial Load는 최신 20개, 위로 Scroll하면 Previous Range,
+                    아래로 이동하면 Latest Range를 Query하도록 분리했습니다.
+                    Search나 Notification에서 Target Message로 이동할 때는 기준
+                    Message의 앞뒤를 각각 Query해 List를 재구성했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>04 · State boundary</span>
+                  <h4>Component State 대신 Store를 Single Source로 사용</h4>
+                  <p>
+                    DB의 Full Query Result를 Component State에서 Slice하는 대신,
+                    Action별 Query Result를 Store에 Merge한 뒤 UI가 Subscribe하도록
+                    바꿨습니다. Query Intent와 State Update Path가 맞물리면서
+                    Update 대상을 Current List Range로 제한할 수 있었습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>05 · Room entry boundary</span>
+                  <h4>반복되던 공통 Sync를 App Lifecycle로 이동</h4>
+                  <p>
+                    Left Member와 Member별 Read Cursor Sync는 App Launch와
+                    Foreground Transition에서 실행했습니다. Room Entry에서는
+                    DB에 반영된 Cursor로 ReadCount를 Update하고 Message Load를
+                    이어갔습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>06 · Read state model</span>
+                  <h4>UI의 ReadCount를 Cursor와 Event Rule로 계산</h4>
+                  <p>
+                    모든 Message를 읽은 State라면 숫자를 표시하지 않았습니다.
+                    Unread State라면 Room Member 수에서 해당 Message의
+                    <code>read_count</code>를 뺀 값을 표시했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section case-dialog-section--wide">
+                  <span>07 · Read event policy</span>
+                  <h4>Message Event마다 Read State Policy를 명시</h4>
+                  <ul class="case-dialog-points">
+                    <li>
+                      Outbound Message는 Sender가 읽은 State이므로
+                      <code>read_count</code>를 1로 생성했습니다.
+                    </li>
+                    <li>
+                      Text·Image Message를 수신하면 Sender를 포함해
+                      <code>read_count</code>를 2로 생성했습니다.
+                    </li>
+                    <li>
+                      1:1 DM은 Message 수신 시 Current Room을 보고 있으면
+                      Read Complete로 전환했습니다.
+                    </li>
+                    <li>
+                      그룹 DM은 <code>read_count</code>가 멤버 수와 같아지면
+                      Read Complete로 전환했습니다.
+                    </li>
+                    <li>
+                      Read Receipt Event의 Room·User·Last Message ID로 Room DB의
+                      User Cursor를 Update했습니다.
+                    </li>
+                    <li>
+                      Current Room이라면 DB와 Store를 함께 Update했습니다.
+                      다른 방이라면 DB만 갱신했습니다.
+                    </li>
+                  </ul>
+                </section>
+                <section class="case-dialog-section case-dialog-section--wide">
+                  <span>08 · Membership policy</span>
+                  <h4>Member Join·Leave 전후에도 ReadCount Semantics를 유지</h4>
+                  <ul class="case-dialog-points">
+                    <li>
+                      Invited User의 Initial Cursor는 초대 직전 Message로
+                      설정했습니다.
+                    </li>
+                    <li>
+                      초대 이전 Message는 New Member가 읽은 것으로 보고
+                      <code>read_count</code>를 1씩 더했습니다.
+                    </li>
+                    <li>
+                      Leave Event 자체는 Last Read Cursor로 저장하지 않았습니다.
+                    </li>
+                    <li>
+                      Left User의 기존 Cursor 이전 Message는
+                      <code>read_count</code>를 1씩 줄였습니다.
+                    </li>
+                    <li>
+                      Current Room이라면 Store와 DB를 함께 Update했습니다.
+                      다른 Room이라면 DB만 Update했습니다.
+                    </li>
+                    <li>
+                      ReadCount Recalculation을 마친 뒤 Left User를 Room Data에서
+                      제거했습니다.
+                    </li>
+                  </ul>
+                </section>
+                <section class="case-dialog-section">
+                  <span>09 · Scroll stability</span>
+                  <h4>Bidirectional Load 중에도 Scroll Position을 유지</h4>
+                  <p>
+                    공통 양방향 리스트가
+                    <code>maintainVisibleContentPosition</code>을 소유하도록
+                    감싸고 외부 Override를 Type Level에서 막았습니다. Latest
+                    Page이고, 더 불러올 Latest Data가 없으며, 사용자가 Bottom에
+                    있을 때만 Auto Scroll하도록 세 조건을 함께 확인했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>10 · Render policy</span>
+                  <h4>Changed Message와 Boundary만 Recalculate</h4>
+                  <p>
+                    Date Chip, 연속 발화의 Avatar·Timestamp처럼 Neighbor Message에
+                    의존하는 Derived State는 Full List 대신 Insertion Point 주변
+                    최대 3개와 Page Boundary 2개만 Recalculate했습니다. Message
+                    Component는 UI에 영향을 주는 Field만 비교해 Re-rendering
+                    범위를 제한했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section case-dialog-section--wide">
+                  <span>11 · Interaction details</span>
+                  <h4>Scroll Frame과 UI State Update를 분리</h4>
+                  <ul class="case-dialog-points">
+                    <li>
+                      매 Frame 바뀌는 Scroll Offset은 Subscriber를 깨우지 않도록
+                      저장하고, Button Visibility나 Bottom State가 실제로 바뀔
+                      때만 State를 Update했습니다.
+                    </li>
+                    <li>
+                      ‘Move to Latest’ Button은 Show Threshold와 Hide Threshold를
+                      다르게 둬 Boundary 부근에서 반복적으로 깜빡이지 않게
+                      했습니다.
+                    </li>
+                    <li>
+                      ReadCount처럼 짧은 시간에 여러 번 변하는 값은 Memo
+                      Comparator에 명시해, Update가 필요한 Message는 놓치지
+                      않도록 했습니다.
+                    </li>
+                    <li>
+                      Initial Render Count·Window Size·Batch Render Count·
+                      Viewability Config를 Chat Domain에 맞춰 조정했습니다.
+                    </li>
+                  </ul>
+                </section>
+                <section class="case-dialog-section case-dialog-section--wide">
+                  <span>12 · Outcome</span>
+                  <h4>Full List가 아니라 Active Range에 비용을 맞춤</h4>
+                  <p>
+                    Query Range는 사용자가 보고 이동하는 Message Range로
+                    좁혔습니다. Room Entry의 공통 Sync는 App Lifecycle로
+                    이동했습니다. 동일한 Measurement Environment에서 Message
+                    Rendering Time은 약 300–400ms에서 10–20ms 수준으로
+                    줄었습니다.
+                  </p>
+                </section>
+              </div>
+
+              <aside class="case-dialog-note" aria-label="후속 개선 과제">
+                <strong>의도적으로 남겨 둔 개선 과제</strong>
+                <p>
+                  Action마다 Store Integration Code가 필요해진 만큼 Update
+                  Policy를 일관되게 유지해야 합니다. 일부 Direct Array Mutation과
+                  Content Height 변화에 대응하는 Delay도 남아 있어, Immutable
+                  Update와 Layout Complete Signal을 기준으로 후속 개선할 수 있는
+                  영역으로 기록했습니다.
+                </p>
+              </aside>
+
+              <ul class="case-dialog-stack" aria-label="DM 렌더링 기술 스택">
+                <li>React Native</li>
+                <li>TypeScript</li>
+                <li>Realm</li>
+                <li>Zustand</li>
+                <li>FlatList</li>
+                <li>maintainVisibleContentPosition</li>
+              </ul>
+            </div>
+          </dialog>
+
+          <dialog
+            class="case-dialog case-dialog--detail"
+            id="i18n-dialog"
+            aria-labelledby="i18n-title">
+            <div class="case-dialog-inner">
+              <div class="case-dialog-head">
+                <div>
+                  <span class="case-dialog-kicker">
+                    Developer experience · Public case note
+                  </span>
+                  <h3 id="i18n-title">
+                    Source Code와 Translation Sheet의 간극을,
+                    <br />Validation부터 Cleanup까지 이어지는 CLI로 메웠습니다.
+                  </h3>
+                </div>
+                <form method="dialog">
+                  <button
+                    class="case-dialog-close"
+                    type="submit"
+                    aria-label="i18n 자동화 사례 닫기">
+                    ×
+                  </button>
+                </form>
+              </div>
+
+              <p class="case-dialog-intro">
+                TypeScript·React Source의 i18n Key를 AST로 Extract해 Google
+                Sheets와 Cross Validation하고, Missing·Unused·Duplicated Key
+                Detection부터 Safe Cleanup까지 하나의 Execution Flow로
+                연결했습니다.
+              </p>
+
+              <section
+                class="case-dialog-architecture"
+                aria-labelledby="i18n-architecture-title">
+                <span id="i18n-architecture-title">Validation to maintenance</span>
+                <div class="architecture-grid">
+                  <div class="architecture-card">
+                    <h4>Validation · Code → report</h4>
+                    <p>ts·tsx → Babel AST → Set diff → file path</p>
+                    <small>
+                      실제 i18n Function Call만 Extract해 Sheet Key와 비교하고,
+                      Validation Result에 바로 수정할 수 있는 Source File Path를
+                      더했습니다.
+                    </small>
+                  </div>
+                  <div class="architecture-card">
+                    <h4>Maintenance · Workflow → Sheets</h4>
+                    <p>GitHub Actions → Cleanup · Deduplication</p>
+                    <small>
+                      발견한 Key의 Cleanup과 Deduplication을 담당자가 직접 실행할
+                      수 있는 Sheet Maintenance Workflow로 연결했습니다.
+                    </small>
+                  </div>
+                </div>
+              </section>
+
+              <div class="case-dialog-grid">
+                <section class="case-dialog-section">
+                  <span>01 · Problem</span>
+                  <h4>담당자와 도구 사이에 남은 번역 레거시</h4>
+                  <p>
+                    개발팀은 Source Code에서 i18n Key를 사용하고 번역 담당자는
+                    Google Sheets에서 문구를 관리했습니다. 두 Source의 Update
+                    Timing이 달라 Missing Key, Unused Key, Duplicated Data가
+                    쌓였지만 사람이 계속 대조하기는 어려웠습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>02 · Static analysis</span>
+                  <h4>String Search 대신 실제 Function Call을 분석</h4>
+                  <p>
+                    <code>@babel/parser</code>로 TypeScript·JSX를 Parse하고,
+                    AST를 Recursive Traverse해 <code>t(...)</code>와
+                    <code>i18n.t(...)</code> Call만 Extract했습니다.
+                    Comment·일반 String·유사 Function Name을 제외하고 String과
+                    Template Literal Argument를 처리했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>03 · Scan pipeline</span>
+                  <h4>Validation Scope를 좁히고 File Error를 격리</h4>
+                  <p>
+                    <code>ts</code>·<code>tsx</code> File을 Scan하되
+                    <code>.d.ts</code>와 <code>.gitignore</code> 대상은
+                    제외했습니다. Path Separator를 Normalize하고, 개별 File
+                    Parsing이 실패하면 Warning만 남겨 전체 Validation이 중단되지
+                    않도록 했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>04 · Cross validation</span>
+                  <h4>Set Difference와 Source Location을 함께 제공</h4>
+                  <p>
+                    Service Account로 Sheet의 Tab별 Key를 수집하고, Source Key와
+                    <code>Set</code> Difference로 비교했습니다. Project-only
+                    Key와 Sheet-only Key를 구분하고 Source File Path를 함께
+                    출력해 Validation Result가 바로 수정으로 이어지게 했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>05 · Safe maintenance</span>
+                  <h4>Bulk Sheet Mutation의 실패와 오삭제를 방어</h4>
+                  <p>
+                    Key Cleanup과 Deduplication을 GitHub Actions로 제공했습니다.
+                    Row는 Descending Order로 삭제해 Index Shift에 따른 오삭제를
+                    막고, <code>batchUpdate</code>로 API Call을 줄였습니다. Quota
+                    초과 시 Exponential Backoff로 최대 3회 Retry하고 Bulk
+                    Operation 뒤에는 Throttling을 적용했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>06 · Distribution</span>
+                  <h4>여러 Project가 같은 Contract로 쓰는 공용 CLI</h4>
+                  <p>
+                    Commander 기반
+                    <code>i18n-checker run &lt;project&gt; ...</code> 명령으로
+                    설계하고 GitHub Packages의 사내 npm Package로
+                    배포했습니다. Local과 CI에서 같은 Validation을
+                    실행하고, Sheet Cleanup은 비개발 담당자도 Workflow Button으로
+                    수행할 수 있게 역할을 나눴습니다.
+                  </p>
+                </section>
+              </div>
+
+              <aside class="case-dialog-note" aria-label="정적 분석 한계와 후속 과제">
+                <strong>Static Analysis의 한계와 후속 과제</strong>
+                <p>
+                  Variable로 전달되는 Dynamic Key와 Interpolated Template Key는
+                  정적으로 확정할 수 없습니다. File Parsing도 Sequential
+                  Processing이므로 큰 Codebase에서는 Worker·Cache 도입 여지가
+                  있으며, AST Extraction Logic의 Unit Test도 추가 과제로 남아
+                  있습니다.
+                </p>
+              </aside>
+
+              <ul class="case-dialog-stack" aria-label="i18n 자동화 기술 스택">
+                <li>TypeScript</li>
+                <li>Node.js</li>
+                <li>@babel/parser</li>
+                <li>Google Sheets API</li>
+                <li>Commander</li>
+                <li>GitHub Actions</li>
+                <li>GitHub Packages</li>
+              </ul>
+            </div>
+          </dialog>
+
+          <dialog
+            class="case-dialog case-dialog--detail"
+            id="codepush-dialog"
+            aria-labelledby="codepush-title">
+            <div class="case-dialog-inner">
+              <div class="case-dialog-head">
+                <div>
+                  <span class="case-dialog-kicker">
+                    Update Experience · Public case note
+                  </span>
+                  <h3 id="codepush-title">
+                    Beta에서 확인한 Update 마찰을, <br />출시 전 OTA로
+                    해결했습니다.
+                  </h3>
+                </div>
+                <form method="dialog">
+                  <button
+                    class="case-dialog-close"
+                    type="submit"
+                    aria-label="CodePush 전환 사례 닫기">
+                    ×
+                  </button>
+                </form>
+              </div>
+
+              <p class="case-dialog-intro">
+                Beta 기간의 잦은 UI·기능 수정마다 새로운 TestFlight Build를
+                배포해야 했고, 최신 Build를 설치하지 않은 채 이전 Version을
+                사용하는 Tester도 많았습니다. 정식 출시 후에도 개선 사항이
+                사용자에게 늦게 전달될 수 있다고 판단해 OTA 도입을 추진했지만,
+                App Center 종료가 예정되어 있어 AWS 기반 Self-hosted CodePush를
+                구축했습니다.
+              </p>
+
+              <section
+                class="case-dialog-architecture"
+                aria-labelledby="codepush-architecture-title">
+                <span id="codepush-architecture-title">Update experience shift</span>
+                <div class="architecture-grid">
+                  <div class="architecture-card">
+                    <h4>Beta signal · TestFlight-dependent update</h4>
+                    <p>JS Change · Build Download · Version Gap</p>
+                    <small>
+                      반복되는 Build 설치와 최신 Build를 사용하지 않는 Tester를 통해
+                      출시 후 사용자에게 이어질 마찰을 미리 확인했습니다.
+                    </small>
+                  </div>
+                  <div class="architecture-card">
+                    <h4>Launch ready · Self-hosted OTA</h4>
+                    <p>CLI Release · Update Check · S3 Download</p>
+                    <small>
+                      Native 변경이 없는 JS Update를 심사와 새 Build 설치 없이
+                      전달할 수 있는 경로를 출시 전에 마련했습니다.
+                    </small>
+                  </div>
+                </div>
+              </section>
+
+              <div class="case-dialog-grid">
+                <section class="case-dialog-section">
+                  <span>01 · Beta signal</span>
+                  <h4>TestFlight 운영에서 먼저 드러난 Update 마찰</h4>
+                  <p>
+                    Beta 기간에는 UI 수정과 기능 보완이 잦았습니다. OTA 도입
+                    전에는 변경된 내용을 확인하기 위해 새로운 TestFlight Build를
+                    배포해야 했고, Tester 기기에도 해당 Build가 새로 설치되어야
+                    했습니다. 그 결과 최신 Build를 설치하지 않은 채 이전 Version을
+                    사용하는 Tester도 많았습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>02 · Decision criteria</span>
+                  <h4>운영 비용을 우선 기준으로 Self-hosted 선택</h4>
+                  <p>
+                    출시 후에도 UI와 기능 수정은 계속되므로 같은 방식은 사용자가
+                    개선을 받는 속도에 영향을 줄 수 있었습니다. 가장 중요한 판단
+                    기준은 운영 비용이었고, Expo OTA의 비용 부담이 가장 컸습니다.
+                    App Center 종료 일정과 기존 Client SDK·CLI 호환성, 사내 AWS·EKS
+                    Runtime을 함께 고려해 Self-hosted 방식을 선택했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>03 · Compatibility boundary</span>
+                  <h4>Core API 대신 Storage Implementation을 교체</h4>
+                  <p>
+                    CodePush의 Storage Interface와 Management·
+                    Acquisition API 규격을 유지했습니다. 전체 Route를 새로
+                    작성하지 않고 S3Storage를 연결해 Client와 CLI의 기존 Update
+                    Flow를 그대로 사용할 수 있게 했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>04 · Data responsibility</span>
+                  <h4>Package와 Service State의 Persistence 분리</h4>
+                  <p>
+                    OTA ZIP Package는 S3에 저장하고, App·Account·Deployment·
+                    Access Key Metadata는 DynamoDB에 영속화했습니다. Server
+                    Startup에서 State를 Restore하고 Mutation 시 다시 저장하도록
+                    구성해 Large Binary와 Metadata의 특성에 맞는 Storage를
+                    사용했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>05 · Compatibility</span>
+                  <h4>Storage Migration 이후 Permission·Compatibility 보완</h4>
+                  <p>
+                    App Owner·Collaborator Permission, External Package URL,
+                    Upload Call Site를 새로운 Storage Flow에 맞게 조정했습니다.
+                    Azure SDK·Key Vault·Azure AD Path를 제거하고 CLI Runtime의
+                    Node.js Version도 고정했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>06 · UX·DX outcome</span>
+                  <h4>출시 후 Update 경험을 위한 OTA 경로 확보</h4>
+                  <p>
+                    변경한 Server를 기존 사내 EKS 환경에 배포했습니다. CLI의
+                    Release Registration부터 Client Update Check, S3 Package
+                    Download까지 이어지는 End-to-end OTA Flow를 확인해, JS
+                    변경을 심사와 새 Build 설치 없이 전달할 수 있는 출시 기반을
+                    마련했습니다.
+                  </p>
+                </section>
+              </div>
+
+              <aside class="case-dialog-note" aria-label="구현 범위와 후속 과제">
+                <strong>구현 범위와 남은 과제</strong>
+                <p>
+                  EKS Cluster와 공통 Infrastructure를 새로 구축한 범위는 아니며,
+                  기존 Runtime에 CodePush Application을 배포했습니다.
+                  DynamoDB의 Single-item State Persistence는 Data Growth와
+                  Concurrent Write를 고려해 Entity 분리와 Conditional Write로
+                  확장할 수 있는 영역입니다.
+                </p>
+              </aside>
+
+              <ul class="case-dialog-stack" aria-label="CodePush 전환 기술 스택">
+                <li>Node.js</li>
+                <li>TypeScript</li>
+                <li>Express</li>
+                <li>AWS SDK v3</li>
+                <li>Amazon S3</li>
+                <li>Amazon DynamoDB</li>
+                <li>Kubernetes</li>
+                <li>Amazon EKS</li>
+              </ul>
+            </div>
+          </dialog>
+
+          <dialog
+            class="case-dialog"
+            id="ci-dialog"
+            aria-labelledby="ci-title">
+            <div class="case-dialog-inner">
+              <div class="case-dialog-head">
+                <div>
+                  <span class="case-dialog-kicker">
+                    Developer experience · Implementation note
+                  </span>
+                  <h3 id="ci-title">
+                    Reviewer의 기억에 의존하던 규칙을 <br />실행 가능한 CI로
+                    바꿨습니다.
+                  </h3>
+                </div>
+                <form method="dialog">
+                  <button
+                    class="case-dialog-close"
+                    type="submit"
+                    aria-label="PR CI 구축 사례 닫기">
+                    ×
+                  </button>
+                </form>
+              </div>
+
+              <p class="case-dialog-intro">
+                Test와 Merge Gate가 없던 Next.js Repository에 Quality Check와
+                Production Docker Build Validation을 구성하고, 문서로만 관리하던
+                Architecture Rule을 Automated Test로 옮겼습니다.
+              </p>
+
+              <div class="case-dialog-grid">
+                <section class="case-dialog-section">
+                  <span>01 · Problem</span>
+                  <h4>Deployment 단계에서 처음 드러나는 Build Failure</h4>
+                  <p>
+                    PR 단계에는 Type·Lint·Test Validation이 없었고, develop 또는
+                    main Branch에 Merge된 뒤 Docker Image와 EKS Deployment를
+                    진행하면서 Build Failure가 처음 발견되는 구조였습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>02 · Quality gate</span>
+                  <h4>4-stage Quality Check와 Production Image Build</h4>
+                  <p>
+                    Prettier·ESLint·TypeScript·Vitest를 순서대로 실행하고,
+                    Production과 같은 Dockerfile로 Standalone Image를 Build하도록
+                    구성했습니다. 같은 PR의 Previous Run은 Cancel해 불필요한
+                    Runner 사용도 줄였습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>03 · Fitness function</span>
+                  <h4>Team Convention을 12개 Fitness Function으로 전환</h4>
+                  <p>
+                    Naming·Directory Structure·Forbidden Pattern·Component
+                    Contract를 Repository 전체에서 검사하도록 구현했습니다. 기존
+                    Code에서는 Convention Violation 18건이 확인됐고, File과 Rule
+                    단위로 Location을 출력하도록 했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>04 · Adoption</span>
+                  <h4>Legacy Violation과 New Violation을 분리</h4>
+                  <p>
+                    Legacy Violation은 Explicit Exception List로 격리하고 New
+                    Violation만 실패하게 하는 Ratchet 방식을 적용했습니다. Large
+                    Refactoring과 CI Adoption을 분리해 Validation System을 먼저
+                    사용할 수 있도록 설계했습니다.
+                  </p>
+                </section>
+              </div>
+
+              <ul class="case-dialog-stack" aria-label="PR CI 구축 기술 스택">
+                <li>GitHub Actions</li>
+                <li>Prettier</li>
+                <li>ESLint</li>
+                <li>TypeScript</li>
+                <li>Vitest</li>
+                <li>Docker</li>
+                <li>Next.js</li>
+              </ul>
+            </div>
+          </dialog>
+
+          <dialog
+            class="case-dialog case-dialog--detail"
+            id="navigation-dialog"
+            aria-labelledby="navigation-title">
+            <div class="case-dialog-inner">
+              <div class="case-dialog-head">
+                <div>
+                  <span class="case-dialog-kicker">
+                    Product design · Public case note
+                  </span>
+                  <h3 id="navigation-title">
+                    이미 익숙한 UX를 기준으로 <br />Versus의 UX를
+                    재설계했습니다.
+                  </h3>
+                </div>
+                <form method="dialog">
+                  <button
+                    class="case-dialog-close"
+                    type="submit"
+                    aria-label="탐색 구조 개선 사례 닫기">
+                    ×
+                  </button>
+                </form>
+              </div>
+
+              <p class="case-dialog-intro">
+                Versus와 경쟁사 서비스의 화면을 Feature 단위로 나눠
+                비교했습니다. 각 항목을 현재 Versus의 UX Problem, Reference UX
+                Pattern, Application Plan이 담긴 14개의 개선안으로 정리했습니다.
+              </p>
+
+              <ul class="case-dialog-metrics" aria-label="UX 개선 제안 요약">
+                <li>
+                  <span>Proposal</span>
+                  <strong>14개 개선안</strong>
+                </li>
+                <li>
+                  <span>Adoption</span>
+                  <strong>12개 채택</strong>
+                </li>
+                <li>
+                  <span>Delivery</span>
+                  <strong>Proposal → Specification → Implementation</strong>
+                </li>
+              </ul>
+
+              <section
+                class="case-dialog-architecture"
+                aria-labelledby="navigation-architecture-title">
+                <span id="navigation-architecture-title">How I structured the proposal</span>
+                <div class="architecture-grid">
+                  <div class="architecture-card">
+                    <h4>01 · 문제를 User Action 단위로 분류</h4>
+                    <p>Read Information · Explore · Start Order</p>
+                    <small>
+                      화면마다 달랐던 문제를 사용자가 정보를 읽고, 다른 서비스로
+                      이동하고, 주문을 시작하는 User Flow로 다시 묶었습니다.
+                    </small>
+                  </div>
+                  <div class="architecture-card">
+                    <h4>02 · 모든 개선안을 같은 Proposal Format으로 정리</h4>
+                    <p>UX Problem → Reference Pattern → Application Plan</p>
+                    <small>
+                      6개 Page의 Before·After와 Reference를 나란히 두고,
+                      Implementation Condition까지 함께 적었습니다.
+                    </small>
+                  </div>
+                </div>
+              </section>
+
+              <div class="case-dialog-grid">
+                <section class="case-dialog-section">
+                  <span>01 · Scope</span>
+                  <h4>Page를 Feature 단위로 나눠 Scope를 고정</h4>
+                  <p>
+                    화면을 6개의 페이지로 나눴습니다. 각 페이지에서 필요한
+                    정보를 쉽게 읽을 수 있는지, 다른 서비스로 이동하기 쉬운지,
+                    주문을 바로 시작할 수 있는지를 같은 기준으로 확인했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>02 · Pattern research</span>
+                  <h4>서비스가 아닌 Feature별로 Reference를 다시 배열</h4>
+                  <p>
+                    경쟁사와 대형 Platform의 화면을 Feature 단위로 나눠
+                    비교했습니다. 여러 서비스에서 반복되는 정보 순서와 주요
+                    Button의 위치를 추려 Versus 화면 옆에 Reference로
+                    배치했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>03 · Proposal format</span>
+                  <h4>Versus의 UX 문제와 적용안을 한 항목에서 비교</h4>
+                  <p>
+                    각 개선안은 Versus의 UX Problem, Reference UX Pattern,
+                    Application Plan 순서로 작성했습니다. Text 간소화 같이 작은
+                    변경이더라도 Before·After 화면을 함께 제시해 차이를 바로
+                    판단할 수 있도록 만들었습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>04 · Navigation structure</span>
+                  <h4>Global Navigation의 역할을 구분하고 User Flow를 다시 연결</h4>
+                  <p>
+                    Global Navigation에서 Header와 Navigator가 맡을 역할을 나눠,
+                    Asset Information·Search와 Primary Menu·Full Menu Entry를
+                    서로 다른 영역에 배치했습니다. 첫 화면에서 Detail Page로 바로
+                    이동하던 Flow에는 Intermediate Category를 추가해, Back
+                    Navigation 이후에도 사용자가 보던 Scope에 머물도록 설계했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>05 · Core interaction</span>
+                  <h4>Decision과 Action에 필요한 Information만 남겨 재배치</h4>
+                  <p>
+                    같은 Information이 여러 위치에 반복되거나, Input 전부터
+                    Result가 노출되는 부분을 정리했습니다. User Input 단계에 맞춰
+                    필요한 Information만 순서대로 보여주고, Priority가 낮은
+                    영역은 줄여 Decision과 Action에 집중하도록 재구성했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>06 · Account structure</span>
+                  <h4>Duplicated Feature를 하나의 Page로 통합</h4>
+                  <p>
+                    Duplicated Feature를 제공하던 Page를 통합하고, User
+                    Information 아래에서 헷징 관련 Data를 이어서 확인하도록
+                    했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section case-dialog-section--wide">
+                  <span>07 · Prioritization & delivery</span>
+                  <h4>Implementation Condition으로 Priority와 Delivery Phase 구분</h4>
+                  <p>
+                    개선안을 Content 변경 없는 Layout Adjustment, 추가 Design이
+                    필요한 UI, Backend 선행이 필요한 Feature로 나눴습니다. Phase
+                    1에는 즉시 비교 가능한 Layout을, Phase 2에는 Feedback을 반영한
+                    Navigation Structure와 Core Interaction 변경을 담았습니다.
+                    채택안은 Data Condition과 Edge Case까지 Specification해 실제
+                    Implementation으로 연결했습니다.
+                  </p>
+                </section>
+              </div>
+
+              <ul class="case-dialog-stack" aria-label="UX 개선 사례 역량">
+                <li>Product Discovery</li>
+                <li>UX Research</li>
+                <li>Competitive Analysis</li>
+                <li>Information Architecture</li>
+                <li>Interaction Design</li>
+                <li>Functional Specification</li>
+                <li>Frontend Implementation</li>
+              </ul>
+            </div>
+          </dialog>
+
+          <dialog
+            class="case-dialog"
+            id="profile-dialog"
+            aria-labelledby="profile-title">
+            <div class="case-dialog-inner">
+              <div class="case-dialog-head">
+                <div>
+                  <span class="case-dialog-kicker">
+                    Feature specification · Public case note
+                  </span>
+                  <h3 id="profile-title">
+                    User Story를 <br />구현 가능한 Specification으로 구체화했습니다.
+                  </h3>
+                </div>
+                <form method="dialog">
+                  <button
+                    class="case-dialog-close"
+                    type="submit"
+                    aria-label="사용자 프로필 기획 사례 닫기">
+                    ×
+                  </button>
+                </form>
+              </div>
+
+              <p class="case-dialog-intro">
+                프로필 기본 정보부터 활동 이력, 리워드, 신고와 로그아웃까지
+                사용자 관점의 요구를 UI·Data·Permission·Edge Case까지
+                명세했습니다.
+              </p>
+
+              <div class="case-dialog-grid">
+                <section class="case-dialog-section">
+                  <span>01 · Scope</span>
+                  <h4>Feature Scope와 Information Architecture 정의</h4>
+                  <p>
+                    기본 정보, 서비스 이용 요약, 콘텐츠 작성 이력, 받을 수 있는
+                    리워드, 신고와 로그아웃을 하나의 프로필 흐름으로 정리했습니다.
+                    Feature별 목적과 사용자에게 제공할 Information을 먼저
+                    구분했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>02 · User story</span>
+                  <h4>본인·타인 Profile의 Permission 분리</h4>
+                  <p>
+                    모든 사용자에게 공개되는 정보와 본인에게만 보이는 정보를
+                    나누고, View·Report·Logout처럼 사용자 관계에 따라 달라지는
+                    Action Condition을 User Story로 정의했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>03 · Specification</span>
+                  <h4>Data와 UI State까지 Specification</h4>
+                  <p>
+                    각 Feature의 Query Condition·Data Shape·Navigation
+                    Destination을 정의하고 Loading·Empty·Error State를 함께
+                    설계했습니다. Auth Expiration과 Not-found Profile처럼
+                    Response에 따라 달라지는 처리도 Requirement에 포함했습니다.
+                  </p>
+                </section>
+                <section class="case-dialog-section">
+                  <span>04 · Web3 interaction</span>
+                  <h4>Reward Claim Flow의 Edge Case 설계</h4>
+                  <p>
+                    Reward Claim을 Wallet Signature와 Contract Call 단계로 나누고,
+                    Signature Rejection과 Network Error를 서로 다른 State로
+                    정의했습니다. Pending State와 Retry 가능 여부까지 UI
+                    Requirement로 연결했습니다.
+                  </p>
+                </section>
+              </div>
+
+              <ul class="case-dialog-stack" aria-label="사용자 프로필 기획 역량">
+                <li>User Story</li>
+                <li>Functional Specification</li>
+                <li>State Design</li>
+                <li>Error Handling</li>
+                <li>Web3 UX</li>
+              </ul>
+            </div>
+          </dialog>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="closing">
+      <div class="shell">
+        <div class="closing-inner">
+          <div>
+            <p class="eyebrow">Let’s work together</p>
+            <h2>문제의 발견부터 제품의 완성까지.</h2>
+            <p>
+              사용자 경험을 더 좋게 만들고, 팀과 함께 문제를 하나씩 풀어가는
+              일을 좋아합니다. <br />그런 동료를 찾고 있다면 편하게 이야기 나누고
+              싶습니다.
+            </p>
+          </div>
+          <div class="contact-stack">
+            <a href="mailto:shin961112@gmail.com">shin961112@gmail.com ↗</a>
+            <a
+              href="https://github.com/shin101004"
+              target="_blank"
+              rel="noreferrer">
+              github.com/shin101004 ↗
+            </a>
+            <a href="tel:+821099566936">010 9956 6936 ↗</a>
+          </div>
+        </div>
+        <div class="footer">
+          <span>© 2026 Shin Jae Min</span>
+          <span>Frontend engineer · Seoul, Korea</span>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const markers = document.querySelectorAll(".section-intro .marker");
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+        markers.forEach((marker) => marker.classList.add("is-visible"));
+      } else {
+        const markerObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            threshold: 0.55,
+            rootMargin: "0px 0px -8% 0px",
+          },
+        );
+
+        markers.forEach((marker) => markerObserver.observe(marker));
+      }
+
+    </script>
+  </body>
+</html>
