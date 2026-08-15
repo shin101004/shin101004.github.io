@@ -615,8 +615,6 @@
             <p>
               릴리스 ZIP과 diff 파일은 클라이언트가 직접 받는 큰 바이너리이고, 앱·계정·배포·Access Key·Package History는 작은 구조화된 상태입니다. 두 종류를 한 저장소에
               넣지 않고 Package는 S3, 서비스 상태는 DynamoDB로 분리했습니다.
-              DynamoDB에 직렬화할 때는 대용량 <code>blobs</code> 필드를 제외해
-              Item 크기 제한도 함께 피했습니다.
             </p>
           </div>
 
@@ -643,7 +641,7 @@
               <text x="398" y="188" font-size="13" fill="#171915" text-anchor="middle">Amazon DynamoDB</text>
               <text x="398" y="212" font-size="11" fill="#66695f" text-anchor="middle">앱 · 계정 · 배포 · Access Key</text>
               <text x="398" y="230" font-size="10" fill="#66695f" text-anchor="middle">Package History · ID Sequence</text>
-              <text x="398" y="248" font-family="monospace" font-size="10" fill="#8a6a1f" text-anchor="middle">blobs 제외 · 단일 Item 상태 저장</text>
+              <text x="398" y="248" font-family="monospace" font-size="10" fill="#8a6a1f" text-anchor="middle">구조화된 서비스 상태 저장</text>
               <line x1="546" y1="92" x2="602" y2="92" stroke="#1f5fd6" marker-end="url(#storage-arrow)" />
               <line x1="546" y1="212" x2="602" y2="212" stroke="#1f5fd6" marker-end="url(#storage-arrow)" />
               <rect x="610" y="38" width="290" height="108" fill="#1f5fd6" stroke="#1f5fd6" />
@@ -651,14 +649,14 @@
               <text x="755" y="98" font-size="11" fill="#dfe9fb" text-anchor="middle">API가 URL만 반환</text>
               <text x="755" y="118" font-size="10" fill="#dfe9fb" text-anchor="middle">Binary Traffic은 API를 통과하지 않음</text>
               <rect x="610" y="158" width="290" height="108" fill="#efece4" stroke="#96988e" />
-              <text x="755" y="192" font-size="12" fill="#171915" text-anchor="middle">Server State Restore</text>
-              <text x="755" y="218" font-size="11" fill="#66695f" text-anchor="middle">시작 시 상태를 읽어 In-memory Map 복원</text>
-              <text x="755" y="238" font-size="10" fill="#66695f" text-anchor="middle">변경 시 현재 상태를 다시 저장</text>
+              <text x="755" y="192" font-size="12" fill="#171915" text-anchor="middle">Server State</text>
+              <text x="755" y="218" font-size="11" fill="#66695f" text-anchor="middle">서버가 시작 시 서비스 상태를 읽어옴</text>
+              <text x="755" y="238" font-size="10" fill="#66695f" text-anchor="middle">상태 변경은 DynamoDB에 반영</text>
             </svg>
             <figcaption>
               S3는 Package 전달을, DynamoDB는 서비스의 메타데이터 상태를 맡습니다.
               API 서버는 다운로드 Proxy가 되지 않고 Version 비교와 URL 응답에 집중할 수
-              있으며, 대용량 바이너리는 DynamoDB Item에서 분리됩니다.
+              있으며, 대용량 바이너리는 메타데이터 저장소와 분리됩니다.
             </figcaption>
           </figure>
 
@@ -674,13 +672,12 @@
             </article>
             <article class="action-card">
               <span class="micro-label">Storage 02 · DynamoDB</span>
-              <h3>CTO가 정한 DynamoDB 위에 단일 Item 모델을 설계했습니다.</h3>
+              <h3>서비스 상태는 DynamoDB에 저장했습니다.</h3>
               <p>
-                서버 상태 저장소는 CTO 판단에 따라 DynamoDB로 정해졌고, 그 안에서
-                서버 상태 전체를 고정 PK/SK의 단일 Item에 저장하고 시작 시 읽어 Map을
-                복원한 뒤 변경 시 스냅샷으로 저장하는 모델을 설계했습니다. 엔티티 수와
-                릴리스 시점의 쓰기 빈도가 작다는 전제 아래 복잡도와 마이그레이션 위험을
-                낮추기 위한 선택입니다.
+                서버 상태 저장소로는 DynamoDB를 사용해, 앱·계정·배포·
+                Access Key·Package History를 저장하도록 Storage 계층을
+                구현했습니다. 서버는 시작할 때 저장된 상태를 읽어 사용하고, 상태가
+                바뀌면 DynamoDB에 다시 반영합니다.
               </p>
             </article>
           </div>
@@ -875,7 +872,7 @@
                 </tr>
                 <tr>
                   <td>상태 영속화</td>
-                  <td>읽기 전용 속성을 저장 전에 제거하고, 시작 시 DynamoDB 상태를 In-memory Map으로 복원</td>
+                  <td>읽기 전용 속성을 저장 전에 제거하고, 서버 시작 시 DynamoDB에 저장된 상태를 읽어 복원</td>
                   <td>재시작 후에도 앱·배포·키 상태를 이어서 사용하는 서버 동작</td>
                 </tr>
                 <tr>
@@ -889,37 +886,9 @@
 
         </section>
 
-        <section class="section" aria-labelledby="tradeoff-title">
-          <div class="section-head">
-            <span class="section-label">07 · Trade-off</span>
-            <h2 id="tradeoff-title">
-              단순한 상태 모델은 현재 규모에 맞지만, 동시성·크기 한계는 다음 과제입니다.
-            </h2>
-            <p>
-              단일 Item 스냅샷 방식은 엔티티별 테이블과 GSI를 설계하는 비용 대신 구현과
-              검증 범위를 작게 유지합니다. 하지만 서비스 상태가 커지면 DynamoDB Item
-              크기 제한과 동시 쓰기 충돌을 더 엄격히 다뤄야 합니다. 그 경우에는 엔티티별
-              Item 분리와 조건부 쓰기(낙관적 잠금)가 자연스러운 다음 단계입니다.
-            </p>
-          </div>
-
-          <div class="card-grid">
-            <article class="action-card action-card--dark">
-              <span class="micro-label">Chosen now</span>
-              <h3>In-memory Map + 전체 스냅샷</h3>
-              <p>엔티티 수와 쓰기 빈도가 작은 사내 앱 조건에서 조회와 구현을 단순하게 유지합니다.</p>
-            </article>
-            <article class="action-card action-card--dark">
-              <span class="micro-label">Scale later</span>
-              <h3>엔티티 분리 + 조건부 쓰기</h3>
-              <p>상태 크기와 동시 수정이 늘어날 때 Item 단위를 나누고 충돌을 감지하는 방향입니다.</p>
-            </article>
-          </div>
-        </section>
-
         <section class="section" aria-labelledby="results-title">
           <div class="section-head">
-            <span class="section-label">08 · Results</span>
+            <span class="section-label">07 · Results</span>
             <h2 id="results-title">
               Self-hosted CodePush를 통해 OTA 경험을 제공할 수 있었습니다.
             </h2>
