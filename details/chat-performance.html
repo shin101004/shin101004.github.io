@@ -439,12 +439,12 @@
             <small>기존 약 300–400ms</small>
           </li>
           <li>
-            <span>Room entry · 신규 있음</span>
+            <span>Room entry sync · 신규 있음</span>
             <strong>0.69ms</strong>
             <small>기존 300.08ms · 약 435배</small>
           </li>
           <li>
-            <span>Room entry · 신규 없음</span>
+            <span>Room entry sync · 신규 없음</span>
             <strong>0.22ms</strong>
             <small>기존 164.65ms · 약 733배</small>
           </li>
@@ -499,8 +499,8 @@
                     <strong>스크롤 중 화면 멈춤 · 앱 종료</strong>
                   </td>
                   <td>
-                    방의 전체 Message를 먼저 읽어 정렬한 뒤 일부만
-                    일부만 잘라 Rendering. 한 번의 Load에서 Cursor·다음
+                    방의 전체 Message를 먼저 읽어 정렬한 뒤 일부만 잘라
+                    Rendering. 한 번의 Load에서 Cursor·다음
                     Data 존재 여부·목록 길이·Message 배열이 연쇄적으로 갱신됨
                   </td>
                   <td>
@@ -764,7 +764,11 @@
 
           <div class="matrix-wrap space">
             <table class="matrix">
-              <caption>Action별 조회 기준과 Store 병합 방식</caption>
+              <caption>
+                Action별 조회 기준과 Store 병합 방식. Store는 최신 메시지가 앞에
+                오도록 유지하므로, 과거 방향은 뒤에서 최신 방향은 앞에서
+                병합됩니다.
+              </caption>
               <thead>
                 <tr>
                   <th style="width: 14%">Action</th>
@@ -790,7 +794,7 @@
                   <td>latest</td>
                   <td>아래로 스크롤해 최신으로 돌아옴</td>
                   <td>현재 Cursor 기준 최신 방향, 역방향 정렬</td>
-                  <td>기존 목록 뒤에 이어 붙임</td>
+                  <td>기존 목록 앞에 붙임</td>
                 </tr>
                 <tr>
                   <td>target</td>
@@ -916,9 +920,11 @@
               <span class="micro-label">Include / Read state</span>
               <h4>메시지 읽음 수</h4>
               <p>
-                메시지 읽음 수는 소켓 이벤트에 따라 배치로 초당 여러 번 갱신됩니다.
-                가장 자주 변하는 값이라 빼면 읽음 표시가 갱신되지 않고, 넣으면
-                Re-render 빈도를 따로 설계해야 합니다.
+                메시지 읽음 수는 다른 멤버의 읽음 확인 소켓 이벤트로 갱신되고, 이
+                이벤트는 기존 배치 큐를 거쳐 묶여 들어옵니다. 가장 자주 바뀌는
+                값이지만 빼면 읽음 표시가 갱신되지 않으므로 비교 대상에 포함하고,
+                큐가 묶어준 단위로 Store를 한 번에 갱신해 Re-render가 이벤트
+                건수가 아니라 배치 단위로 발생하게 했습니다.
               </p>
             </article>
           </div>
@@ -1286,7 +1292,11 @@
                       그 메시지를 기점으로 이전 메시지의 카운트를 모두
                       <strong>+1</strong>
                     </td>
-                    <td>멤버 수가 늘며 기존 완료 표시가 무효가 되므로 다시 확인</td>
+                    <td>
+                      초대 이전 메시지는 초대된 유저에게 노출되지 않으므로 읽음으로
+                      확정됩니다. 카운트와 멤버 수가 함께 늘어 이미 완료 표시된
+                      메시지는 그대로 유지되고 재계산 대상에 들어오지 않습니다
+                    </td>
                   </tr>
                   <tr>
                     <td>유저 나가기</td>
@@ -1332,6 +1342,10 @@
               문제는 2·3번 과정이 필요 여부와 상관없이
               <strong>입장할 때마다</strong> 반복된다는 점이었습니다. 실제로 이
               로직이 동작하는 경우 UI가 그려지기까지 예상보다 시간이 많이 걸렸습니다.
+            </p>
+            <p>
+              이 절의 측정값은 입장 시 실행되던 동기화 로직의 실행 시간이며, 목록이
+              실제로 그려지는 비용은 02–06절의 렌더링 개선에서 따로 다뤘습니다.
             </p>
           </div>
 
@@ -1436,8 +1450,8 @@
             <div class="matrix-wrap">
               <table class="matrix">
                 <caption>
-                  DM 방 입장 시 UI Rendering까지 걸린 시간. 같은 측정 환경에서 변경
-                  전후를 비교했습니다.
+                  DM 방 입장 시 실행되던 동기화 로직의 실행 시간. 같은 측정
+                  환경에서 변경 전후를 비교했습니다.
                 </caption>
                 <thead>
                   <tr>
@@ -1612,13 +1626,13 @@
                   <td>전체 조회 후 slice → Action별 Range Query</td>
                 </tr>
                 <tr>
-                  <td>Room entry · 신규 없음</td>
+                  <td>Room entry sync · 신규 없음</td>
                   <td class="num num--before">164.6454ms</td>
                   <td class="num num--after">0.2246ms</td>
                   <td>입장 시 공통 Sync → App Lifecycle Sync</td>
                 </tr>
                 <tr>
-                  <td>Room entry · 신규 있음</td>
+                  <td>Room entry sync · 신규 있음</td>
                   <td class="num num--before">300.0828ms</td>
                   <td class="num num--after">0.6905ms</td>
                   <td>비동기 완료 대기 제거 · DB의 현재 상태 사용</td>

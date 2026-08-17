@@ -496,7 +496,7 @@
                 </tr>
                 <tr>
                   <td>Category</td>
-                  <td><strong>선택형 Category Filter 추가</strong>필요할 때만 Category를 선택하고, browser history를 확인해 이전 메뉴를 유지합니다.</td>
+                  <td><strong>선택형 Category Filter 추가</strong>필요할 때만 Category를 선택하고, 선택한 범위를 히스토리 엔트리에 저장해 뒤로가기 이후에도 유지합니다.</td>
                   <td>사용자가 관심 범위를 좁혀 Market을 비교하고, Back 이후에도 같은 범위에서 탐색을 이어갈 수 있습니다.</td>
                 </tr>
                 <tr>
@@ -665,7 +665,7 @@
             <article class="screen-card screen-card--wide">
               <span class="micro-label">Screen 06 · Category</span>
               <h3>Category를 선택해 관심 범위를 좁혀도 탐색 맥락을 유지했습니다.</h3>
-              <p>Category 선택은 필수 과정이 아니므로 Home에서 바로 Market으로 이동할 수 있어야 했습니다. 필요한 경우에만 소메뉴를 선택하고, browser history를 확인해 Back 이후에도 선택한 범위를 유지하도록 구성했습니다.</p>
+              <p>Category 선택은 필수 과정이 아니므로 Home에서 바로 Market으로 이동할 수 있어야 했습니다. 필요한 경우에만 소메뉴를 선택하고, 선택한 범위를 <code>history.replaceState</code>로 현재 히스토리 엔트리에 기록해 Back 이후에도 그 값으로 복원되도록 구성했습니다.</p>
               <div class="mock-compare" aria-label="Category Before After 축약도">
                 <div class="mock mock--before">
                   <div class="mock-label"><span>AS-IS</span><span>direct route</span></div>
@@ -681,10 +681,10 @@
                   <div class="mock-line mock-line--short"></div>
                   <div class="mock-row"><span>기본 이동</span><strong>Home → Market</strong></div>
                   <div class="mock-row"><span>선택 시</span><strong>Home → Category → Market</strong></div>
-                  <div class="mock-row"><span>Back</span><strong>browser history로 복원</strong></div>
+                  <div class="mock-row"><span>Back</span><strong>history state로 복원</strong></div>
                 </div>
               </div>
-              <p class="screen-note"><strong>핵심 변화:</strong> Category를 통해 사용자 관심사를 좁힐 수 있지만 필수 단계로 만들지 않았습니다. browser history를 검사해 Back Event 이후에도 이전 Category와 탐색 범위를 유지합니다.</p>
+              <p class="screen-note"><strong>핵심 변화:</strong> Category를 통해 사용자 관심사를 좁힐 수 있지만 필수 단계로 만들지 않았습니다. 탐색 범위를 URL이 아니라 히스토리 엔트리의 state에 두어, 뒤로가기 시 브라우저가 복원한 state에서 이전 Category와 범위를 되살립니다.</p>
             </article>
 
             <article class="screen-card screen-card--wide">
@@ -900,7 +900,7 @@
               14개 개선안은 먼저 기획팀의 1차 검토를 거쳤고, 이 단계에서는 큰
               수정 없이 그대로 진행하는 것으로 확인됐습니다. 이후 일부 화면에는
               개선 방향을 실제로 먼저 적용해 Before·After를 직접 비교할 수 있게
-              했고, 이를 반영한 A/B 테스트 페이지를 만들어 팀 미팅에서
+              했고, 이를 반영한 Before·After 비교 페이지를 만들어 팀 미팅에서
               발표했습니다. 미팅에서
               나온 질문은 대부분 프론트엔드 UI, 디자인팀 Figma, 기획팀 기획서
               변경이 각각 얼마나 필요한지에 관한 것이었습니다. 디자인팀은 이미
@@ -943,7 +943,7 @@
                       <li>Portfolio Table 디자인 개편</li>
                     </ul>
                   </td>
-                  <td>12개의 개선안을 반영한 이후 일간 Core Action 전환율 평균은 <strong>9%에서 16%로 상승</strong>했습니다. 또한 화면별 정보 우선순위와 Core Action까지의 접근 경로를 정리한 결과를 바탕으로, 후속 UX 개선안을 검토할 수 있는 기준을 마련했습니다.</td>
+                  <td>12개의 개선안을 반영한 이후 일간 Core Action 전환율 평균은 <strong>9%에서 16%로 상승</strong>했습니다. 대조군을 둔 실험은 아니어서 같은 기간의 다른 변경과 분리한 수치는 아닙니다. 또한 화면별 정보 우선순위와 Core Action까지의 접근 경로를 정리한 결과를 바탕으로, 후속 UX 개선안을 검토할 수 있는 기준을 마련했습니다.</td>
                 </tr>
                 <tr>
                   <td>Adjusted</td>
